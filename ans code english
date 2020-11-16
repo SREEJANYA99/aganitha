@@ -1,0 +1,41 @@
+from word2number import w2n
+s=input()
+words=s.split()
+print(words)           
+print(len(words))           
+i=0
+ar=["zero", "one", "two", "three","four", "five", "six", "seven","eight", "nine","ten", "eleven", "twelve","thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen","nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety","hundred"]
+if("twos" in ar):
+    print("True")
+else:
+    print("false")
+
+while(i<len(words)):
+    print(i)
+    wrd=words[i]
+    if(len(wrd)==1):
+        j=i
+        s=""
+        while(j!=len(words)):
+            if(len(words[j].replace('.',""))==1):
+                s+=words[j]
+                j+=1
+            else:
+                break
+        words=words[:i]+[s]+words[j:] 
+    if(wrd=="dollar" and words[i-1].replace('.',"")=="one"):
+        words=words[:i-1]+["$1"]+words[i+1:]
+    elif("dollars" == wrd[:7]):
+        j=i-1
+        while(j>0):
+            if(words[j].replace('.',"") in ar):
+                j-=1
+            else:
+                break
+        stt=" ".join(words[j+1:i])
+        words=words[:i-1]+["$"+str(w2n.word_to_num(stt))+wrd[7:] ]+words[i+1:]
+        
+    i+=1
+print(" ".join(words))           
+        
+    
